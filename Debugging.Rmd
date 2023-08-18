@@ -142,7 +142,7 @@ One drawback to `traceback()` is that it always linearises the call tree, which 
 ```{r, error = TRUE}
 j <- function() k()
 k <- function() stop("Oops!", call. = FALSE)
-f(j())
+j()
 ```
 
 ```{r, eval = FALSE}
