@@ -142,18 +142,14 @@ One drawback to `traceback()` is that it always linearises the call tree, which 
 ```{r, error = TRUE}
 j <- function() k()
 k <- function() stop("Oops!", call. = FALSE)
-f(j())
+j()
 ```
 
 ```{r, eval = FALSE}
 traceback()
-#> 7: stop("Oops!") at #1
-#> 6: k() at #1
-#> 5: j() at debugging.R#1
-#> 4: i(c) at debugging.R#3
-#> 3: h(b) at debugging.R#2
-#> 2: g(a) at debugging.R#1
-#> 1: f(j())
+#> 3: stop("Oops!") at #1
+#> 2: k() at #1
+#> 1: j()
 ```
 
 You can use `rlang::with_abort()` and `rlang::last_trace()` to see the call tree. Here, I think it makes it much easier to see the source of the problem. Look at the last branch of the call tree to see that the error comes from `j()` calling `k()`.
